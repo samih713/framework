@@ -1,0 +1,9 @@
+// output test file
+output.txt
+// object files
+*.o
+// build files
+libnn.a
+neural_net
+// vscode
+.vscode/
