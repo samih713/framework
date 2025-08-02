@@ -16,7 +16,7 @@ NAME := libnn.a
 MAIN_EXEC := neural_net
 
 CC := gcc
-CFLAGS := -Wall -Wextra -Werror -ggdb3 -fsanitize=address
+CFLAGS := -Wall -Wextra -Werror -ggdb3 -fsanitize=address -O3
 
 LIBS :=
 INC :=
