@@ -14,11 +14,11 @@ void print_matrix(const matrix_t *mat)
         for (int j = 0; j < mat->n; ++j)
             if (j == mat->n - 1)
             {
-                printf("%f", mat->data[i][j]);
+                printf("%.2f", mat->data[i][j]);
             }
             else
             {
-                printf("%f, ", mat->data[i][j]);
+                printf("%.2f, ", mat->data[i][j]);
             }
         printf("\n");
     }
