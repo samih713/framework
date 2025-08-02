@@ -49,7 +49,6 @@ void free_matrix(matrix_t *mat)
 void rand_matrix(matrix_t *mat)
 {
     int size = mat->m * mat->n;
-    srand(time(0));
     for (int i = 0; i < size; ++i)
     {
         mat->data[0][i] = rand_float();
