@@ -17,3 +17,9 @@ void sigmoidf(float *y)
 {
     *y = (1.0f / (1.0f + expf(-*y)));
 }
+
+void relu(float *y)
+{
+    if (*y < 0)
+        *y = 0;
+}
