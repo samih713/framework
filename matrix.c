@@ -1,19 +1,19 @@
 #include "matrix.h"
 
-void __intit_matrix(matrix_t *mat, int m, int n);
+void __intit_matrix(matrix_t *mat, int rows, int cols);
 
 /**
  * @brief Creates and initializes a new matrix with specified dimensions.
  *
- * @param m Number of rows
- * @param n Number of columns
+ * @param rows Number of rows
+ * @param cols Number of columns
  *
  * @return Initialized matrix_t structure
  */
-matrix_t matrix(int m, int n)
+matrix_t matrix(int rows, int cols)
 {
     matrix_t new;
-    __intit_matrix(&new, m, n);
+    __intit_matrix(&new, rows, cols);
     return new;
 }
 
@@ -37,8 +37,8 @@ void free_matrix(matrix_t *mat)
         free(mat->data);
     }
     mat->data = NULL;
-    mat->m = 0;
-    mat->n = 0;
+    mat->rows = 0;
+    mat->cols = 0;
 }
 
 /**
@@ -48,28 +48,28 @@ void free_matrix(matrix_t *mat)
  */
 void rand_matrix(matrix_t *mat)
 {
-    int size = mat->m * mat->n;
+    int size = mat->rows * mat->cols;
     for (int i = 0; i < size; ++i)
     {
         mat->data[0][i] = rand_float();
     }
 }
 
-void __intit_matrix(matrix_t *mat, int m, int n)
+void __intit_matrix(matrix_t *mat, int rows, int cols)
 {
     // initialize to safe values
     mat->data = NULL;
-    mat->m = 0;
-    mat->n = 0;
+    mat->rows = 0;
+    mat->cols = 0;
     // allocate row pointers
-    mat->data = malloc(sizeof(float *) * m);
+    mat->data = malloc(sizeof(float *) * rows);
     if (!mat->data)
     {
         ERROR("Allocation failed.\n");
         return;
     }
     // allocate block
-    mat->data[0] = calloc((m * n), sizeof(float));
+    mat->data[0] = calloc((rows * cols), sizeof(float));
     if (!mat->data[0])
     {
         ERROR("Allocation failed.\n");
@@ -78,11 +78,11 @@ void __intit_matrix(matrix_t *mat, int m, int n)
         return;
     }
     // set row pointers
-    for (int i = 1; i < m; ++i)
+    for (int i = 1; i < rows; ++i)
     {
-        mat->data[i] = mat->data[i - 1] + n;
+        mat->data[i] = mat->data[i - 1] + cols;
     }
     // set the size
-    mat->m = m;
-    mat->n = n;
+    mat->rows = rows;
+    mat->cols = cols;
 }

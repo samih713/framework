@@ -3,9 +3,9 @@
 
 void apply_activation(matrix_t *c, void (*activation)(float *))
 {
-    for (int i = 0; i < c->m; ++i)
+    for (int i = 0; i < c->rows; ++i)
     {
-        for (int j = 0; j < c->n; ++j)
+        for (int j = 0; j < c->cols; ++j)
         {
             activation(&(c->data[i][j]));
         }

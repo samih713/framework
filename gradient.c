@@ -14,7 +14,7 @@ void set_weight_gradients(network_t *nw, float **inputs, float **expected, int t
 
     for (int i = 0; i < n_weights; ++i)
     {
-        current_size = w_gradients[i].m * w_gradients[i].n;
+        current_size = w_gradients[i].rows * w_gradients[i].cols;
         cost = get_cost(nw, inputs, expected, train_count);
         for (int j = 0; j < current_size; ++j)
         {
@@ -46,7 +46,7 @@ void set_bais_gradients(network_t *nw, float **inputs, float **expected, int tra
     // set each element in the gradient matrices
     for (int i = 0; i < n_biases; ++i)
     {
-        current_size = b_gradients[i].m * b_gradients[i].n;
+        current_size = b_gradients[i].rows * b_gradients[i].cols;
         cost = get_cost(nw, inputs, expected, train_count);
         for (int j = 0; j < current_size; ++j)
         {
@@ -73,7 +73,7 @@ void apply_weight_gradients(network_t *nw)
     int current_size = 0;
     for (int i = 0; i < n_weights; ++i)
     {
-        current_size = weights[i].m * weights[i].n;
+        current_size = weights[i].rows * weights[i].cols;
         for (int j = 0; j < current_size; ++j)
         {
             weights[i].data[0][j] -= (w_gradients[i].data[0][j] * rate);
@@ -92,7 +92,7 @@ void apply_bias_gradients(network_t *nw)
     int current_size = 0;
     for (int i = 0; i < n_biases; ++i)
     {
-        current_size = biases[i].m * biases[i].n;
+        current_size = biases[i].rows * biases[i].cols;
         for (int j = 0; j < current_size; ++j)
         {
             biases[i].data[0][j] -= b_gradients[i].data[0][j] * rate;

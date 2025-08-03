@@ -10,14 +10,15 @@
 typedef struct matrix_s
 {
     float **data;
-    int m;
-    int n;
+    int rows;
+    int cols;
 } matrix_t;
 
 // Basic
-matrix_t matrix(int m, int n);
-void free_matrix(matrix_t *m);
+matrix_t matrix(int rows, int cols);
+void free_matrix(matrix_t *rows);
 void print_matrix(const matrix_t *mat);
+void print_row(const matrix_t *mat, int col_index);
 // fill random
 void rand_matrix(matrix_t *mat);
 // mult
