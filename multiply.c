@@ -12,11 +12,8 @@
  */
 matrix_t multiply(const matrix_t *a, const matrix_t *b)
 {
-    if (a->cols != b->rows)
-    {
-        ERROR("Matrix multiplication not possible.\n");
-        return NULL_MATRIX;
-    }
+    assert(a->cols == b->rows && "Matrix multiplication not possible.\n");
+    
     matrix_t c = matrix(a->rows, b->cols);
     for (int i = 0; i < a->rows; ++i)
     {
@@ -31,16 +28,9 @@ matrix_t multiply(const matrix_t *a, const matrix_t *b)
 
 void multiply_into(const matrix_t *a, const matrix_t *b, matrix_t *c)
 {
-    if (a->cols != b->rows)
-    {
-        ERROR("Matrix multiplication not possible.\n");
-        return;
-    }
-    if ((c->rows != a->rows) | (c->cols != b->cols))
-    {
-        ERROR("Invalid size for Output matrix.\n");
-        return;
-    }
+    // assert(a->cols == b->rows && "Matrix multiplication not possible.\n");
+    // assert(c->rows == a->rows && c->cols == b->cols && "output matrix has wrong shape");
+
     for (int i = 0; i < a->rows; ++i)
     {
         for (int j = 0; j < b->cols; ++j)
@@ -51,4 +41,3 @@ void multiply_into(const matrix_t *a, const matrix_t *b, matrix_t *c)
         }
     }
 }
-

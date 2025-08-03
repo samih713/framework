@@ -58,5 +58,6 @@ void print_outputs(network_t *nw);
 // activation
 void apply_activation(matrix_t *c, void (*activation)(float *));
 void sigmoidf(float *y);
+void relu(float *y);
 
 #endif // NETWORK_H

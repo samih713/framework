@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <time.h>
+#include <assert.h>
 
 typedef struct matrix_s
 {
