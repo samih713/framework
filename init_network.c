@@ -4,6 +4,7 @@ static void init_layers(const meta_t *nd, matrix_t *layers);
 static void init_weights(const meta_t *nd, matrix_t *weights);
 static void init_weight_gradients(const meta_t *nd, matrix_t *gradients);
 static void init_biases(const meta_t *nd, matrix_t *biases);
+static void init_deltas(const meta_t *nd, matrix_t *deltas);
 static void init_bias_gradients(const meta_t *nd, matrix_t *b_gradients);
 
 network_t init_network(meta_t *nd)
@@ -23,6 +24,9 @@ network_t init_network(meta_t *nd)
     // biases
     nw.biases = malloc(sizeof(matrix_t) * nd->n_biases);
     init_biases(nw.nd, nw.biases);
+    // deltas
+    nw.deltas = malloc(sizeof(matrix_t) * nd->n_layers);
+    init_deltas(nw.nd, nw.deltas);
     // b_gradients
     nw.b_gradients = malloc(sizeof(matrix_t) * nd->n_biases);
     init_bias_gradients(nw.nd, nw.b_gradients);
@@ -36,6 +40,8 @@ static void init_layers(const meta_t *nd, matrix_t *layers)
         layers[i] = matrix(nd->layer_sizes[i], 1);
     }
 }
+
+
 
 static void init_weights(const meta_t *nd, matrix_t *weights)
 {
@@ -66,6 +72,16 @@ static void init_biases(const meta_t *nd, matrix_t *biases)
     {
         biases[i] = matrix(nd->layer_sizes[i + 1], 1);
         rand_matrix(&(biases[i]));
+    }
+}
+
+static void init_deltas(const meta_t *nd, matrix_t *deltas)
+{
+    size_t n_deltas = nd->n_biases;
+
+    for (size_t i = 0; i < n_deltas; ++i)
+    {
+        deltas[i] = matrix(nd->layer_sizes[i + 1], 1);
     }
 }
 

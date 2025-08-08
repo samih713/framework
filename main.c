@@ -50,7 +50,7 @@ int main()
 {
     float rate = 10e-1;
     float eps = 1e-1;
-    int train_iter = 50000;
+    int train_iter = 5;
     int input_size = 3;
     int output_size = 1;
 
@@ -74,7 +74,7 @@ int main()
     train(&nw, train_set.inputs.data, train_set.outputs.data, train_count_avg3, train_iter);
 
     // test network
-    test_network(&nw, &test_set);
+    // test_network(&nw, &test_set);
     // Clean up
     free_network(&nw);
     free_data(&test_set);

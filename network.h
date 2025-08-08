@@ -19,6 +19,7 @@ typedef struct meta_s
 typedef struct network_s
 {
     meta_t *nd;
+    matrix_t *deltas;
     matrix_t *layers;
     matrix_t *weights;
     matrix_t *w_gradients;
@@ -44,6 +45,8 @@ void test_network(network_t *nw, const data_t *test_data);
 data_t set_data(int input_size, float *inputs, int output_size, float *outputs, int train_count);
 // cost
 float get_cost(network_t *nw, float **inputs, float **expected, int train_count);
+// bp
+void compute_output_delta(network_t *nw, float **expected);
 // gradient
 void set_weight_gradients(network_t *nw, float **inputs, float **expected, int train_count);
 void set_bais_gradients(network_t *nw, float **inputs, float **expected, int train_count);

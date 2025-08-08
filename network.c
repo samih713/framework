@@ -19,6 +19,7 @@ void train(network_t *nw, float **inputs, float **expected, int train_count, int
 {
     for (int i = 0; i < rounds; ++i)
     {
+        compute_output_delta(nw, expected);
         set_weight_gradients(nw, inputs, expected, train_count);
         set_bais_gradients(nw, inputs, expected, train_count);
         apply_weight_gradients(nw);
