@@ -7,3 +7,4 @@ libnn.a
 neural_net
 // vscode
 .vscode/
+neural_net.dSYM/
