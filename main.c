@@ -28,6 +28,7 @@ float test_in_avg3[] = {
     0.123f, 0.456f, 0.789f, // avg = (0.123+0.456+0.789)/3 = 0.456
     0.33f, 0.66f, 0.99f // avg = (0.33+0.66+0.99)/3 = 0.66
 };
+
 float test_expected_avg3[] = {
     0.0f,
     1.0f,
@@ -50,12 +51,12 @@ int main()
 {
     float rate = 10e-1;
     float eps = 1e-1;
-    int train_iter = 5;
-    int input_size = 3;
-    int output_size = 1;
+    size_t train_iter = 5;
+    size_t input_size = 3;
+    size_t output_size = 1;
 
-    int layer_sizes[] = {input_size, 3, 2, 3, output_size};
-    int n_layers = sizeof(layer_sizes) / sizeof(layer_sizes[0]);
+    size_t layer_sizes[] = {input_size, 3, 2, 3, output_size};
+    size_t n_layers = sizeof(layer_sizes) / sizeof(layer_sizes[0]);
 
 
     // init
@@ -71,10 +72,10 @@ int main()
     data_t test_set = set_data(3, test_in_avg3, 1, test_expected_avg3, test_count_avg3);
 
     // 
-    train(&nw, train_set.inputs.data, train_set.outputs.data, train_count_avg3, train_iter);
+    train(nw, train_set, train_iter);
 
     // test network
-    // test_network(&nw, &test_set);
+    test_network(nw, test_set);
     // Clean up
     free_network(&nw);
     free_data(&test_set);

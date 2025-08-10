@@ -17,44 +17,6 @@ matrix_t matrix(int rows, int cols)
     return new;
 }
 
-/**
- * @brief Frees the internal data arrays of a matrix structure
- *
- * Deallocates the memory used by the matrix's data arrays and resets
- * the matrix dimensions to zero.
- *
- * @param mat Pointer to the matrix structure to free
- *
- * @note Does not free the matrix structure itself.
- */
-void free_matrix(matrix_t *mat)
-{
-    if (!mat)
-        return;
-    if (mat->data)
-    {
-        free(mat->data[0]);
-        free(mat->data);
-    }
-    mat->data = NULL;
-    mat->rows = 0;
-    mat->cols = 0;
-}
-
-/**
- * @brief Fills a matrix with random floating-point values between 0 and 1.
- *
- * @param mat Pointer to the matrix to fill with random values
- */
-void rand_matrix(matrix_t *mat)
-{
-    int size = mat->rows * mat->cols;
-    for (int i = 0; i < size; ++i)
-    {
-        mat->data[0][i] = rand_float();
-    }
-}
-
 void __intit_matrix(matrix_t *mat, int rows, int cols)
 {
     // initialize to safe values

@@ -1,24 +1,19 @@
 #include "network.h"
 
-void test_network(network_t *nw, const data_t *test_data)
+void test_network(network_t nw, data_t test)
 {
-
-    matrix_t *out = &nw->layers[nw->nd->n_layers - 1];
-    matrix_t expected = test_data->outputs;
-    matrix_t *in = &nw->layers[0];
-
-    for (int i = 0; i < test_data->train_count; ++i)
+    for (int i = 0; i < test.train_count; ++i)
     {
-        set_inputs(nw, test_data->inputs.data[i]);
+        set_inputs(nw, ROW(test.inputs, i));
         forward(nw);
 
         printf("Set {%d}\n\n", i + 1);
         printf("[INPUT]\n");
-        print_matrix(in);
+        print_inputs(nw);
         printf("[OUTPUT]\n");
-        print_matrix(out);
+        print_outputs(nw);
         printf("[EXPECTED]\n");
-        print_row(&expected, i);
+        print_row(test.expected, i);
         printf("----------------\n\n");
     }
 }

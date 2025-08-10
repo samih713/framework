@@ -21,8 +21,10 @@ CFLAGS := -Wall -Wextra -Werror -ggdb3 -fsanitize=address -O3
 LIBS :=
 INC :=
 
-SRCS := activation.c add.c cost.c gradient.c init_meta.c init_network.c matrix.c matrix_utils.c multiply.c network.c network_utils.c set_data.c test_network.c bp.c
-OBJS := $(SRCS:.c=.o)
+MATRIX_SRCS:=add.c matrix.c transpose.c matrix_utils.c multiply.c
+NETWORK_SRCS:= activation.c gradient.c init_meta.c init_network.c  network.c network_utils.c set_data.c test_network.c bp.c data_utils.c
+SRCS:= $(MATRIX_SRCS) $(NETWORK_SRCS)
+OBJS:= $(SRCS:.c=.o)
 
 # Progress tracking
 TOTAL_SRCS := $(words $(SRCS))

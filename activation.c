@@ -1,13 +1,13 @@
 #include <math.h>
 #include "network.h"
 
-void apply_activation(matrix_t *c, void (*activation)(float *))
+void apply_activation(matrix_t c, void (*activation)(float *))
 {
-    for (int i = 0; i < c->rows; ++i)
+    for (size_t i = 0; i < c.rows; ++i)
     {
-        for (int j = 0; j < c->cols; ++j)
+        for (size_t j = 0; j < c.cols; ++j)
         {
-            activation(&(c->data[i][j]));
+            activation(&(MAT_AT(c, i, j)));
         }
     }
 }

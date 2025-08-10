@@ -1,9 +1,9 @@
 #include "network.h"
 
-void print_network(const network_t *nw)
+void print_network(network_t nw)
 {
-    const int n_layers = nw->nd->n_layers;
-    for (int i = 0; i < n_layers; ++i)
+    size_t n_layers = nw.nd->n_layers;
+    for (size_t i = 0; i < n_layers; ++i)
     {
         if (i == 0)
         {
@@ -15,12 +15,12 @@ void print_network(const network_t *nw)
         }
         else
         {
-            printf("[Hidden Layer %d]\n", i - 1);
+            printf("[Hidden Layer %zu]\n", i - 1);
         }
-        print_matrix(&(nw->layers[i]));
+        print_matrix(nw.layers[i]);
         if (i != n_layers - 1)
         {
-            print_matrix(&(nw->weights[i]));
+            print_matrix(nw.weights[i]);
         }
         printf("----------------------------\n");
     }
@@ -28,66 +28,51 @@ void print_network(const network_t *nw)
 
 void free_network(network_t *nw)
 {
-    int n_layers = nw->nd->n_layers;
-    int n_weights = nw->nd->n_weights;
-    int n_biases = nw->nd->n_biases;
+    size_t n_layers = nw->nd->n_layers;
+    size_t n_params = nw->nd->n_params;
 
     // free layers
-    for (int i = 0; i < n_layers; ++i)
+    for (size_t i = 0; i < n_layers; ++i)
     {
         free_matrix(&(nw->layers[i]));
     }
     free(nw->layers);
     nw->layers = NULL;
-    // free weights
-    for (int i = 0; i < n_weights; ++i)
+    // free params
+    for (size_t i = 0; i < n_params; ++i)
     {
         free_matrix(&(nw->weights[i]));
+        free_matrix(&(nw->w_gradients[i]));
+        free_matrix(&(nw->biases[i]));
+        free_matrix(&(nw->b_gradients[i]));
+        free_matrix(&(nw->deltas[i]));
     }
     free(nw->weights);
-    nw->weights = NULL;
-    // free w_gradients
-    for (int i = 0; i < n_weights; ++i)
-    {
-        free_matrix(&(nw->w_gradients[i]));
-    }
     free(nw->w_gradients);
-    nw->w_gradients = NULL;
-    // free biases
-    for (int i = 0; i < n_biases; ++i)
-    {
-        free_matrix(&(nw->biases[i]));
-    }
     free(nw->biases);
-    nw->biases = NULL;
-    // free biases
-    for (int i = 0; i < n_biases; ++i)
-    {
-        free_matrix(&(nw->b_gradients[i]));
-    }
     free(nw->b_gradients);
+    free(nw->deltas);
+    nw->weights = NULL;
+    nw->w_gradients = NULL;
+    nw->biases = NULL;
     nw->b_gradients = NULL;
+    nw->deltas = NULL;
 }
 
-void set_inputs(network_t *nw, float *inputs_values)
+void set_inputs(network_t nw, matrix_t input)
 {
-    matrix_t inputs = nw->layers[0];
-    int n_inputs = nw->nd->n_inputs;
-
-    for (int i = 0; i < n_inputs; ++i)
+    for (size_t i = 0; i < nw.nd->n_inputs; ++i)
     {
-        inputs.data[0][i] = inputs_values[i];
+        MAT_AT(INPUTS(nw), i, 0) = MAT_AT(input, i, 0);
     }
 }
 
-void print_outputs(network_t *nw)
+void print_inputs(network_t nw)
 {
-    matrix_t outputs = nw->layers[nw->nd->n_layers - 1];
-    print_matrix(&outputs);
+    print_matrix(INPUTS(nw));
 }
 
-void free_data(data_t *t)
+void print_outputs(network_t nw)
 {
-    free_matrix(&(t->inputs));
-    free_matrix(&(t->outputs));
+    print_matrix(OUTPUTS(nw));
 }
