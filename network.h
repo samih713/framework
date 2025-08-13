@@ -42,7 +42,7 @@ meta_t init_meta(size_t *layer_sizes, size_t n_layers, float rate, float eps);
 // network
 network_t init_network(meta_t *nd);
 void forward(network_t nw);
-void train(network_t nw, data_t train_data, int rounds);
+void train(network_t nw, data_t train_data, size_t rounds);
 void test_network(network_t nw, data_t test_data);
 // data
 data_t set_data(int input_size, float *inputs, int output_size, float *outputs, int train_count);
@@ -51,6 +51,7 @@ void set_output_delta(network_t nw, matrix_t expected);
 void set_hidden_deltas(network_t nw);
 // gradient
 void set_gradients(network_t nw);
+void apply_gradients(network_t nw);
 // utils
 void free_data(data_t *t);
 void print_network(network_t nw);

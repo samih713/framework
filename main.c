@@ -47,11 +47,12 @@ float test_expected_avg3[] = {
 int test_count_avg3 = 13;
 
 
+#if 1
 int main()
 {
     float rate = 10e-1;
     float eps = 1e-1;
-    size_t train_iter = 5;
+    size_t train_iter = 500000;
     size_t input_size = 3;
     size_t output_size = 1;
 
@@ -82,3 +83,35 @@ int main()
     free_data(&train_set);
     return 0;
 }
+#endif
+
+#if 0 // unit test
+int main() {
+    float rate = 10e-1;
+    float eps = 1e-1;
+    // size_t train_iter = 5;
+    size_t input_size = 3;
+    size_t output_size = 1;
+
+    size_t layer_sizes[] = {input_size, 3, 2, 3, output_size};
+    size_t n_layers = sizeof(layer_sizes) / sizeof(layer_sizes[0]);
+
+
+    // init
+    srand(time(0));
+    meta_t nd = init_meta(
+        layer_sizes,
+        n_layers,
+        rate,
+        eps);
+    network_t nw = init_network(&nd);
+    data_t t = set_data(3, test_in_avg3, 1, test_expected_avg3, test_count_avg3);
+    set_inputs(nw, ROW(t.inputs, 2));
+    print_matrix(t.inputs);
+    print_row(t.inputs, 2);
+    print_matrix(INPUTS(nw));
+
+    free_data(&t);
+    free_network(&nw);
+}
+#endif 

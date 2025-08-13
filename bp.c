@@ -26,7 +26,7 @@ void set_hidden_deltas(network_t nw)
 {
     size_t n_deltas = nw.nd->n_params - 1;
 
-    for (size_t i = n_deltas; i > 0; --i)
+    for (size_t i = n_deltas - 1; i > 0; --i)
     {
         matrix_t wnext = nw.weights[i + 1];
         matrix_t dnext = nw.deltas[i + 1];
