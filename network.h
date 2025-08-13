@@ -46,8 +46,6 @@ void train(network_t nw, data_t train_data, int rounds);
 void test_network(network_t nw, data_t test_data);
 // data
 data_t set_data(int input_size, float *inputs, int output_size, float *outputs, int train_count);
-// cost
-float get_cost(network_t nw, data_t train);
 // bp
 void set_output_delta(network_t nw, matrix_t expected);
 void set_hidden_deltas(network_t nw);
@@ -57,7 +55,7 @@ void set_gradients(network_t nw);
 void free_data(data_t *t);
 void print_network(network_t nw);
 void free_network(network_t *nw);
-void set_inputs(network_t nw, matrix_t input);
+void set_inputs(network_t nw, float *input);
 void print_inputs(network_t nw);
 void print_outputs(network_t nw);
 // activation

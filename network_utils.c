@@ -59,11 +59,11 @@ void free_network(network_t *nw)
     nw->deltas = NULL;
 }
 
-void set_inputs(network_t nw, matrix_t input)
+void set_inputs(network_t nw, float *input)
 {
     for (size_t i = 0; i < nw.nd->n_inputs; ++i)
     {
-        MAT_AT(INPUTS(nw), i, 0) = MAT_AT(input, i, 0);
+        MAT_AT(INPUTS(nw), i, 0) = input[i];
     }
 }
 
