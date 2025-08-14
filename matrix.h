@@ -29,6 +29,8 @@ void rand_matrix(matrix_t mat);
 // mult
 matrix_t multiply(matrix_t a, matrix_t b);
 void multiply_into(matrix_t a, matrix_t b, matrix_t c);
+// transpose
+matrix_t transpose(matrix_t m);
 // add
 matrix_t add_scalar(matrix_t a, float b);
 void add_into(matrix_t a, matrix_t b, matrix_t c);

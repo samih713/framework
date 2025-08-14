@@ -11,7 +11,6 @@ typedef struct meta_s
     size_t n_layers;
     size_t n_params;
     float rate;
-    float eps;
     size_t *layer_sizes;
 } meta_t;
 
@@ -38,7 +37,7 @@ typedef struct data_s
 #define OUTPUTS(nw) ((nw).layers[(nw).nd->n_layers - 1])
 
 // nd
-meta_t init_meta(size_t *layer_sizes, size_t n_layers, float rate, float eps);
+meta_t init_meta(size_t *layer_sizes, size_t n_layers, float rate);
 // network
 network_t init_network(meta_t *nd);
 void forward(network_t nw);
