@@ -18,7 +18,7 @@ MAIN_EXEC := neural_net
 CC := gcc
 CFLAGS := -Wall -Wextra -Werror -ggdb3 -fsanitize=address -O3
 
-LIBS :=
+LIBS := -lm
 INC :=
 
 MATRIX_SRCS:=add.c matrix.c transpose.c matrix_utils.c multiply.c
@@ -62,11 +62,11 @@ $(NAME): $(OBJS)
 %.o: %.c
 	$(eval CURRENT := $(shell echo $$(($(CURRENT) + 1))))
 	@echo "$(BOLD)$(CYAN)[$(CURRENT)/$(TOTAL_SRCS)]$(RESET) $(PURPLE)🔨 Compiling$(RESET) $<"
-	@$(CC) $(CFLAGS) $(INC) -c $< -o $@
+	@$(CC) -o $@ $(CFLAGS) $(INC) -c $<
 
 main: main.c $(NAME) 
 	@echo "$(BOLD)$(YELLOW)🔧 Building main executable...$(RESET)"
-	@$(CC) $(CFLAGS) $^ -lm -o $(MAIN_EXEC)
+	@$(CC) $(CFLAGS) $^ $(LIBS) -o $(MAIN_EXEC)
 	@echo "$(BOLD)$(GREEN)✓ Executable $(MAIN_EXEC) ready!$(RESET)"
 
 run: main
