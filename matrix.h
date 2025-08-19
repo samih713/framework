@@ -26,6 +26,7 @@ void print_row(matrix_t m, size_t i);
 void print_col(matrix_t m, size_t j);
 // fill random
 void rand_matrix(matrix_t mat);
+void fill_matrix(matrix_t mat, float v);
 // mult
 matrix_t multiply(matrix_t a, matrix_t b);
 void multiply_into(matrix_t a, matrix_t b, matrix_t c);

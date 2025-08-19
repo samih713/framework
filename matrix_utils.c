@@ -91,3 +91,11 @@ void free_matrix(matrix_t *mat)
     mat->rows = 0;
     mat->cols = 0;
 }
+
+void fill_matrix(matrix_t mat, float v) {
+    size_t size = mat.rows * mat.cols;
+    for (size_t i = 0; i < size; ++i)
+    {
+        mat.data[0][i] = v;
+    }
+}
